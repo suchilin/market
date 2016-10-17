@@ -24,20 +24,20 @@ class Product(models.Model):
     manufacturer = models.CharField(max_length=30, null=True, blank=True)
     description = models.TextField()
     short_description = models.CharField(max_length=255, blank=True)
-    components = models.ForeignKey('self', null=True, blank=True)
+    components = models.ManyToManyField('self', null=True, blank=True)
 
     def __unicode__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('products.views.product', args=[str(self.pk)])
+        return reverse('products.views.ProductDetailView', args=[str(self.pk)])
 
 class Feature(models.Model):
     name = models.CharField(max_length=30)
     quantity = models.FloatField()
     units = models.OneToOneField(Unit, related_name='unit_of')
     description = models.TextField()
-    product = models.ForeignKey(Product, related_name='features')
+    product = models.ForeignKey(Product, related_name='features', null=True, blank=True)
 
     def __unicode__(self):
         return self.name

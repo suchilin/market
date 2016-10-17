@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Products</h1>
+    <a href ="{% url 'products:create-products' %}">Add a product</a>
+    <table>
+        <tr>
+            <td>Product</td>
+        </tr>
+        {% for product in object_list %}
+        <td><a href="{% url 'products:detail-products' product.pk %}">{{ product }}</a></td>
+        {% endfor %}
+    </table>
+{% endblock %}
